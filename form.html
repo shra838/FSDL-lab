@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Experiment 3 – Form Validation</title>
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #eef2f7;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .form-card {
+      background: #fff;
+      width: 420px;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+      padding: 40px 36px;
+    }
+
+    .form-card h2 {
+      text-align: center;
+      color: #1a1a2e;
+      font-size: 22px;
+      margin-bottom: 6px;
+    }
+
+    .form-card p.subtitle {
+      text-align: center;
+      color: #888;
+      font-size: 13px;
+      margin-bottom: 28px;
+    }
+
+    .form-group { margin-bottom: 20px; }
+
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #444;
+      margin-bottom: 6px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1.8px solid #d0d7e2;
+      border-radius: 8px;
+      font-size: 14px;
+      color: #333;
+      outline: none;
+      transition: border-color 0.25s;
+    }
+
+    .form-group input:focus   { border-color: #4f6ef7; }
+    .form-group input.error-border   { border-color: #e74c3c; }
+    .form-group input.success-border { border-color: #27ae60; }
+
+    /* Inline error text — hidden by default, JS shows it */
+    .error-msg {
+      display: none;
+      color: #e74c3c;
+      font-size: 12px;
+      margin-top: 5px;
+    }
+
+    .btn-submit {
+      width: 100%;
+      padding: 12px;
+      background: #4f6ef7;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 6px;
+      transition: background 0.25s;
+    }
+    .btn-submit:hover { background: #3a58e0; }
+
+    #success-banner {
+      display: none;
+      background: #eafaf1;
+      border: 1px solid #27ae60;
+      color: #1e8449;
+      border-radius: 8px;
+      padding: 12px;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 600;
+      margin-top: 18px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-card">
+    <h2>📋 Registration Form</h2>
+    <p class="subtitle">Experiment 3 – Client-Side Form Validation</p>
+
+    <!--
+      novalidate = disables browser's built-in validation popup
+      so our JS validation runs instead
+    -->
+    <form id="registrationForm" novalidate>
+
+      <!-- Name -->
+      <div class="form-group">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" placeholder="Enter your full name" />
+        <span class="error-msg" id="nameError">⚠ Name cannot be empty.</span>
+      </div>
+
+      <!--
+        type="text" used here intentionally (NOT type="email").
+        type="email" causes the browser to show its OWN popup
+        and block the submit event before JS can run.
+        We validate email format ourselves using a regex in JS.
+      -->
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="text" id="email" placeholder="example@email.com" />
+        <span class="error-msg" id="emailError">⚠ Enter a valid email (e.g. abc@mail.com).</span>
+      </div>
+
+      <!-- Password -->
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Minimum 6 characters" />
+        <span class="error-msg" id="passwordError">⚠ Password must be at least 6 characters.</span>
+      </div>
+
+      <!-- Mobile -->
+      <div class="form-group">
+        <label for="mobile">Mobile Number</label>
+        <input type="text" id="mobile" placeholder="10-digit mobile number" maxlength="10" />
+        <span class="error-msg" id="mobileError">⚠ Mobile must be exactly 10 digits.</span>
+      </div>
+
+      <button type="submit" class="btn-submit">Submit Registration</button>
+
+    </form>
+
+    <div id="success-banner">
+      ✅ Form submitted successfully! All validations passed.
+    </div>
+  </div>
+
+  <!-- script.js must be in the SAME folder as form.html -->
+  <script src="script.js"></script>
+
+</body>
+</html>
